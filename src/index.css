@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Anton&family=Bebas+Neue&family=Inter:wght@400;900&display=swap');
+
+:root {
+  --bg: #0e0e12;
+  --surface: #17171d;
+  --surface-2: #1f1f27;
+  --border: #2b2b35;
+  --text: #f2f2f5;
+  --text-dim: #9c9ca8;
+  --accent: #7c5cff;
+  --accent-text: #ffffff;
+  --danger: #ff6b6b;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
