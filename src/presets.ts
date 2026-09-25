@@ -1,4 +1,4 @@
-import type { DistortionPreset, FormatPreset } from './types';
+import type { BlobPreset, DistortionPreset, FormatPreset } from './types';
 
 export const FORMAT_PRESETS: FormatPreset[] = [
   { id: 'square', label: 'Post 1:1', width: 1080, height: 1080 },
@@ -88,6 +88,13 @@ export const DISTORTION_PRESETS: DistortionPreset[] = [
       echoTimeOffset: 0,
     },
   },
+];
+
+export const BLOB_PRESETS: BlobPreset[] = [
+  { id: 'off', label: 'Off', values: { enabled: false, copies: 5, spread: 6, blur: 10, threshold: 0.5 } },
+  { id: 'bubble', label: 'Bubble', values: { enabled: true, copies: 4, spread: 4, blur: 8, threshold: 0.55 } },
+  { id: 'goo', label: 'Goo', values: { enabled: true, copies: 6, spread: 9, blur: 15, threshold: 0.46 } },
+  { id: 'mega-blob', label: 'Mega Blob', values: { enabled: true, copies: 8, spread: 16, blur: 26, threshold: 0.4 } },
 ];
 
 export const FONT_OPTIONS = [

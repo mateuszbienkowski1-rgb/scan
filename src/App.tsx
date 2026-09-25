@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
+import { BlobPanel } from './components/BlobPanel';
 import { CanvasPreview } from './components/CanvasPreview';
 import { DistortionPanel } from './components/DistortionPanel';
 import { ExportPanel } from './components/ExportPanel';
@@ -9,7 +10,7 @@ import { TextControls } from './components/TextControls';
 import { loadImage } from './engine/source';
 import { useEngine } from './hooks/useEngine';
 import { FORMAT_PRESETS } from './presets';
-import type { BackgroundSettings, ContentMode, DistortionSettings, ImageSettings, TextSettings } from './types';
+import type { BackgroundSettings, BlobSettings, ContentMode, DistortionSettings, ImageSettings, TextSettings } from './types';
 
 type Tab = 'content' | 'distortion' | 'export';
 
@@ -46,6 +47,8 @@ const DEFAULT_DISTORTION: DistortionSettings = {
   loopDuration: 4,
 };
 
+const DEFAULT_BLOB: BlobSettings = { enabled: false, copies: 5, spread: 6, blur: 10, threshold: 0.5 };
+
 const PREVIEW_MAX_DIM = 640;
 
 export default function App() {
@@ -57,6 +60,7 @@ export default function App() {
   const [imageEl, setImageEl] = useState<HTMLImageElement | null>(null);
   const [background, setBackground] = useState(DEFAULT_BACKGROUND);
   const [distortion, setDistortion] = useState(DEFAULT_DISTORTION);
+  const [blob, setBlob] = useState(DEFAULT_BLOB);
   const [playing, setPlaying] = useState(true);
 
   const format = FORMAT_PRESETS.find((f) => f.id === formatId) ?? FORMAT_PRESETS[0];
@@ -76,8 +80,8 @@ export default function App() {
   }, [image.src]);
 
   const scene = useMemo(
-    () => ({ format, contentMode, text, image, imageEl, background, distortion }),
-    [format, contentMode, text, image, imageEl, background, distortion],
+    () => ({ format, contentMode, text, image, imageEl, background, distortion, blob }),
+    [format, contentMode, text, image, imageEl, background, distortion, blob],
   );
 
   const previewScale = Math.min(1, PREVIEW_MAX_DIM / Math.max(format.width, format.height));
@@ -90,7 +94,7 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <h1>Distort</h1>
-        <p>Melt, wave and echo text or images — export PNG or MP4 in Instagram-ready sizes.</p>
+        <p>Melt, wave, blob and echo text or images — export PNG or MP4 in Instagram-ready sizes.</p>
       </header>
 
       <div className="app-body">
@@ -142,9 +146,14 @@ export default function App() {
             )}
 
             {tab === 'distortion' && (
-              <Section title="Distortion">
-                <DistortionPanel value={distortion} onChange={setDistortion} />
-              </Section>
+              <>
+                <Section title="Blob / Goo">
+                  <BlobPanel value={blob} onChange={setBlob} />
+                </Section>
+                <Section title="Melt / Wave">
+                  <DistortionPanel value={distortion} onChange={setDistortion} />
+                </Section>
+              </>
             )}
 
             {tab === 'export' && (

@@ -1,14 +1,14 @@
 import { fbm4, type NoiseFields } from './noise';
 import type { BackgroundSettings, DistortionSettings } from '../types';
 
-type Canvas2D = HTMLCanvasElement | OffscreenCanvas;
+export type Canvas2D = HTMLCanvasElement | OffscreenCanvas;
 
 export interface Scratch {
   tmp1: Canvas2D;
   tmp2: Canvas2D;
 }
 
-function ctx2d(c: Canvas2D): CanvasRenderingContext2D {
+export function ctx2d(c: Canvas2D): CanvasRenderingContext2D {
   return c.getContext('2d') as CanvasRenderingContext2D;
 }
 

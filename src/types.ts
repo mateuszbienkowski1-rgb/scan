@@ -53,3 +53,17 @@ export interface DistortionPreset {
   label: string;
   values: Omit<DistortionSettings, 'seed' | 'loop' | 'loopDuration'>;
 }
+
+export interface BlobSettings {
+  enabled: boolean;
+  copies: number;
+  spread: number;
+  blur: number;
+  threshold: number;
+}
+
+export interface BlobPreset {
+  id: string;
+  label: string;
+  values: BlobSettings;
+}

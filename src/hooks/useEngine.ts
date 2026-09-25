@@ -20,7 +20,7 @@ export function useEngine(scene: SceneState, previewW: number, previewH: number,
   useEffect(() => {
     contentRef.current = buildContentCanvas(previewScene);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scene.contentMode, scene.text, scene.image, scene.imageEl, previewW, previewH]);
+  }, [scene.contentMode, scene.text, scene.image, scene.imageEl, scene.blob, scene.distortion.seed, previewW, previewH]);
 
   useEffect(() => {
     fieldsRef.current = createNoiseFields(scene.distortion.seed);

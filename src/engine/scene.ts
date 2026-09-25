@@ -1,6 +1,7 @@
+import { applyBlobEffect } from './blob';
 import { makeCanvas, type Scratch } from './renderer';
 import { drawImageContent, drawTextContent } from './source';
-import type { BackgroundSettings, ContentMode, DistortionSettings, FormatPreset, ImageSettings, TextSettings } from '../types';
+import type { BackgroundSettings, BlobSettings, ContentMode, DistortionSettings, FormatPreset, ImageSettings, TextSettings } from '../types';
 
 export interface SceneState {
   format: FormatPreset;
@@ -10,6 +11,7 @@ export interface SceneState {
   imageEl: HTMLImageElement | null;
   background: BackgroundSettings;
   distortion: DistortionSettings;
+  blob: BlobSettings;
 }
 
 export function buildContentCanvas(state: SceneState) {
@@ -20,7 +22,9 @@ export function buildContentCanvas(state: SceneState) {
   } else {
     drawImageContent(content, W, H, state.image, state.imageEl);
   }
-  return content;
+
+  const solidColor = state.contentMode === 'text' ? state.text.color : null;
+  return applyBlobEffect(content, W, H, state.blob, state.distortion.seed, solidColor);
 }
 
 export type { Scratch };
